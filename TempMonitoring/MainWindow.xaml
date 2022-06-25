@@ -1,0 +1,35 @@
+﻿<Window x:Class="TempMonitoring.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TempMonitoring"
+        mc:Ignorable="d"
+        Title="TempMonitoring" Height="800" Width="1000">
+    <Window.Resources>
+        <Style x:Key ="tbInputData">
+            <Setter Property="Control.Width" Value="150"/>
+            <Setter Property="Control.Height" Value="30"/>
+            <Setter Property="Control.HorizontalAlignment" Value="Left"/>
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key ="lbInputParamsText">
+            <Setter Property="Control.Width" Value="150"/>
+            <Setter Property="Control.HorizontalAlignment" Value="Left"/>
+            <Setter Property="Control.VerticalAlignment" Value="Top"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <TextBox Style="{StaticResource tbInputData}" Margin="213,66,0,0"/>
+        <Label Style ="{StaticResource lbInputParamsText}" Content="Вид рыбы" Margin="47,62,0,0"/>
+        <TextBox Style="{StaticResource tbInputData}" Margin="213,136,0,0" />
+        <Label Style ="{StaticResource lbInputParamsText}" Content="Максимально допустимая &#xD;&#xA;температура хранения" Margin="47,130,0,0"/>
+        <Label Style ="{StaticResource lbInputParamsText}" Content="Минимально допустимая &#xA;температура хранения" Margin="47,264,0,0"/>
+        <TextBox Style="{StaticResource tbInputData}" Margin="213,270,0,0"/>
+        <TextBox Style="{StaticResource tbInputData}" Margin="213,182,0,0" />
+        <Label Style ="{StaticResource lbInputParamsText}" Content="Допустимое время" Margin="47,184,0,0"/>
+        <TextBox Style="{StaticResource tbInputData}" Margin="213,316,0,0"/>
+        <Label Style ="{StaticResource lbInputParamsText}" Content="Допустимое время" Margin="47,318,0,0"/>
+    </Grid>
+</Window>
