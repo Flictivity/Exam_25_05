@@ -1,17 +1,19 @@
 ﻿namespace TempMonitoring
 {
-    class TempCalc
+    public class TempCalc
     {
         public Product prod;
-        private DateTime date;
+        public DateTime date;
         int[] temps;
         int timeInterval;
         private DateTime ckeckTime;
-        List<TempsDif> diffs;
+        public List<TempsDif> diffs = new List<TempsDif>();
+        public List<TempsDif> currentDiffs = new List<TempsDif>();
 
         public TempCalc(DateTime date, int[] temps, int intervalTime)
         {
             this.date = date;
+            ckeckTime = this.date;
             this.temps = temps;
             timeInterval = intervalTime;
         }
@@ -21,44 +23,65 @@
             {
                 throw new Exception("Temps data not correct format");
             }
-
+            int maxWaitTime = 0;
+            int minWaitTime = 0;
             foreach (int temperature in temps)
             {
-                ckeckTime.AddMinutes(timeInterval);
-                int maxWaitTime = 0;
-                int minWaitTime = 0;
+                if (temperature >= prod.minTempVal
+                        && temperature <= prod.maxTempVal)
+                {
+                    if (maxWaitTime > prod.maxTempValTime ||
+                        minWaitTime > prod.minTempValTime)
+                    {
+                        diffs.AddRange(currentDiffs.ToArray());
+                    }
 
-                if (temperature > prod.maxTempVal)
+                    currentDiffs.Clear();
+                    maxWaitTime = 0;
+                    minWaitTime = 0;
+                    continue;
+                }
+                else if (temperature > prod.maxTempVal)
                 {
                     maxWaitTime += timeInterval;
                     minWaitTime = 0;
-                }
-                else if (temperature >= prod.minTempVal
-                        && temperature <= prod.maxTempVal)
-                {
-                    maxWaitTime = 0;
-                    minWaitTime = 0;
-                    continue;
+                    currentDiffs.Add(new TempsDif(temperature, prod.maxTempVal, ckeckTime));
                 }
                 else
                 {
-                    maxWaitTime = 0;
                     minWaitTime += timeInterval;
+                    maxWaitTime = 0;
+                    currentDiffs.Add(new TempsDif(temperature, prod.minTempVal, ckeckTime));
                 }
-
-                if (maxWaitTime > prod.maxTempVal)
+            }
+        }
+        public void Load(string loadPath)
+        {
+            string line;
+            using (var sR = new StreamReader(loadPath))
+            {
+                try
                 {
-                    diffs.Add(new TempsDif(temperature, prod.maxTempVal, ckeckTime));
-                    continue;
+                    date = DateTime.Parse(sR.ReadLine());
+                    temps = Array.ConvertAll<string, int>(sR.ReadLine().Split(), int.Parse);
                 }
-
-                if (minWaitTime > prod.minTempVal)
+                catch (Exception ex)
                 {
-                    diffs.Add(new TempsDif(temperature, prod.minTempVal, ckeckTime));
+                }
+            }
+        }
+        public void Save(string loadPath)
+        {
+            using(var sW = new StreamWriter(loadPath))
+            {
+                sW.WriteLine(date);
+                sW.WriteLine(prod);
+                foreach(var t in diffs)
+                {
+                    sW.WriteLine(t);
                 }
             }
         }
     }
 }
-
 

@@ -1,6 +1,6 @@
 ﻿namespace TempMonitoring
 {
-    class Product
+    public class Product
     {
         public string prodName;
         public int maxTempVal;
@@ -24,6 +24,13 @@
             this.maxTempValTime = maxTempValTime;
             this.minTempVal = int.MinValue;
             this.minTempValTime = int.MaxValue;
+        }
+
+        public override string ToString()
+        {
+            return $"Продукт:{prodName}. Максимальная температура{maxTempVal}. " +
+                $"Минимальная температура{maxTempVal}. Время максимальной температура{maxTempValTime}" +
+                $"Время максимальной температура{minTempValTime}";
         }
     }
 }

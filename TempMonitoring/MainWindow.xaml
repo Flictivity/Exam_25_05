@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TempMonitoring"
         mc:Ignorable="d"
-        Title="TempMonitoring" Height="800" Width="1000">
+        Title="TempMonitoring" Height="800" Width="1300" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key ="tbInputData">
             <Setter Property="Control.Width" Value="150"/>
@@ -15,21 +15,35 @@
             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
         </Style>
         <Style x:Key ="lbInputParamsText">
-            <Setter Property="Control.Width" Value="150"/>
+            <Setter Property="Control.Width" Value="160"/>
             <Setter Property="Control.HorizontalAlignment" Value="Left"/>
             <Setter Property="Control.VerticalAlignment" Value="Top"/>
         </Style>
     </Window.Resources>
     <Grid>
-        <TextBox Style="{StaticResource tbInputData}" Margin="213,66,0,0"/>
-        <Label Style ="{StaticResource lbInputParamsText}" Content="Вид рыбы" Margin="47,62,0,0"/>
-        <TextBox Style="{StaticResource tbInputData}" Margin="213,136,0,0" />
+        <TextBox x:Name="prodName" Style="{StaticResource tbInputData}" Margin="213,67,0,0"/>
+        <Label Style ="{StaticResource lbInputParamsText}" Content="Вид рыбы" Margin="47,69,0,0"/>
+        <TextBox x:Name="maxTempVal" Style="{StaticResource tbInputData}" Margin="213,136,0,0" />
         <Label Style ="{StaticResource lbInputParamsText}" Content="Максимально допустимая &#xD;&#xA;температура хранения" Margin="47,130,0,0"/>
         <Label Style ="{StaticResource lbInputParamsText}" Content="Минимально допустимая &#xA;температура хранения" Margin="47,264,0,0"/>
-        <TextBox Style="{StaticResource tbInputData}" Margin="213,270,0,0"/>
-        <TextBox Style="{StaticResource tbInputData}" Margin="213,182,0,0" />
+        <TextBox x:Name="minTempVal" Style="{StaticResource tbInputData}" Margin="213,270,0,0"/>
+        <TextBox x:Name="maxTempValTime" Style="{StaticResource tbInputData}" Margin="213,182,0,0" />
         <Label Style ="{StaticResource lbInputParamsText}" Content="Допустимое время" Margin="47,184,0,0"/>
-        <TextBox Style="{StaticResource tbInputData}" Margin="213,316,0,0"/>
+        <TextBox x:Name="minTempValTime" Style="{StaticResource tbInputData}" Margin="213,316,0,0"/>
         <Label Style ="{StaticResource lbInputParamsText}" Content="Допустимое время" Margin="47,318,0,0"/>
+        <TextBox x:Name="dateStart" Style="{StaticResource tbInputData}" Margin="213,390,0,0"/>
+        <Label Style ="{StaticResource ResourceKey=lbInputParamsText}" Content="Дата начала измерений" Margin="47,392,0,0"/>
+        <DataGrid x:Name="dgInfo" AutoGenerateColumns="True" Margin="438,25,0,0" FontSize="20" d:ItemsSource="{d:SampleData ItemCount=5}">
+
+        </DataGrid>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="File" Click="MenuItem_Click">
+                <MenuItem Header="Load" />
+            </MenuItem>
+        </Menu>
+        <Button x:Name="btnFill" Content="Сформировать" HorizontalAlignment="Left" Margin="127,581,0,0" VerticalAlignment="Top" Width="181" Height="27" Click="btnFill_Click"/>
+        <TextBox x:Name="tempsData" Style="{StaticResource tbInputData}" Margin="47,501,0,0" Width="329"/>
+        <Label Style ="{StaticResource ResourceKey=lbInputParamsText}" Content="Значения температур(через пробел)" Margin="47,457,0,0" Width="329"/>
+        <Button x:Name="btnFill_Copy" Content="Сохранить" HorizontalAlignment="Left" Margin="127,627,0,0" VerticalAlignment="Top" Width="181" Height="27" Click="btnSave_Click"/>
     </Grid>
 </Window>
