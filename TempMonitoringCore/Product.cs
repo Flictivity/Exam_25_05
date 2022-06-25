@@ -29,7 +29,7 @@
         public override string ToString()
         {
             return $"Продукт:{prodName}. Максимальная температура{maxTempVal}. " +
-                $"Минимальная температура{maxTempVal}. Время максимальной температура{maxTempValTime}" +
+                $"Минимальная температура{minTempVal}. Время максимальной температура{maxTempValTime}" +
                 $"Время максимальной температура{minTempValTime}";
         }
     }
